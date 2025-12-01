@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
+
 class Main {
     public static void main(String[] args) {
         try {
@@ -11,7 +12,8 @@ class Main {
                 System.out.println("2 – Wyświetl wszystkich studentów");
                 System.out.println("3 – Znajdź studenta po imieniu");
                 System.out.println("4 – Usuń studenta");
-                System.out.println("5 – Wyjście");
+                System.out.println("5 – Zaktualizuj dane studenta");
+                System.out.println("6 – Wyjście");
                 System.out.print("Wybierz opcję: ");
                 int choice = Integer.parseInt(scanner.nextLine());
                 if (choice == 1) {
@@ -47,13 +49,20 @@ class Main {
                 else if (choice == 4) {
                     System.out.print("Podaj imię studenta do usunięcia: ");
                     String name = scanner.nextLine();
-
                     boolean ok = s.deleteStudentByName(name);
-
                     if (ok) System.out.println("Usunięto studenta.\n");
-                    else System.out.println("Wystąpił błąd.\n");
+                    else System.out.println("Nie znaleziono studenta lub wystąpił błąd.\n");
                 }
                 else if (choice == 5) {
+                    System.out.print("Podaj imię studenta do aktualizacji: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Podaj nowy wiek: ");
+                    int newAge = Integer.parseInt(scanner.nextLine());
+                    boolean ok = s.updateStudentAgeByName(name, newAge);
+                    if (ok) System.out.println("Zaktualizowano dane studenta.\n");
+                    else System.out.println("Nie znaleziono studenta lub wystąpił błąd.\n");
+                }
+                else if (choice == 6) {
                     System.out.println("Koniec programu.");
                     break;
                 }

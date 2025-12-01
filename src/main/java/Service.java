@@ -36,18 +36,41 @@ public class Service {
         }
         return null;
     }
+
     public boolean deleteStudentByName(String name) {
         try {
             var students = getStudents();
-            boolean removed = false;
-            students.removeIf(st -> st.GetName().equalsIgnoreCase(name));
+            boolean removed = students.removeIf(st -> st.GetName().equalsIgnoreCase(name));
             var writer = new BufferedWriter(new FileWriter("db.txt", false));
             for (Student st : students) {
                 writer.write(st.ToString());
                 writer.newLine();
             }
             writer.close();
-            return true;
+            return removed;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+    public boolean updateStudentAgeByName(String name, int newAge) {
+        try {
+            var students = getStudents();
+            boolean updated = false;
+            for (Student st : students) {
+                if (st.GetName().equalsIgnoreCase(name)) {
+                    st.SetAge(newAge);
+                    updated = true;
+                }
+            }
+            if (updated) {
+                var writer = new BufferedWriter(new FileWriter("db.txt", false));
+                for (Student st : students) {
+                    writer.write(st.ToString());
+                    writer.newLine();
+                }
+                writer.close();
+            }
+            return updated;
         } catch (IOException e) {
             return false;
         }
