@@ -11,7 +11,8 @@ class Main {
                 System.out.println("=== MENU ===");
                 System.out.println("1 – Dodaj nowego studenta");
                 System.out.println("2 – Wyświetl wszystkich studentów");
-                System.out.println("3 – Wyjście");
+                System.out.println("3 – Znajdź studenta po imieniu");
+                System.out.println("4 – Wyjście");
                 System.out.print("Wybierz opcję: ");
 
                 int choice = Integer.parseInt(scanner.nextLine());
@@ -35,12 +36,25 @@ class Main {
                 else if (choice == 2) {
                     var students = s.getStudents();
                     System.out.println("\n--- Lista studentów ---");
+
                     for (Student st : students) {
                         System.out.println(st.ToString());
                     }
                     System.out.println();
                 }
                 else if (choice == 3) {
+                    System.out.print("Podaj imię studenta: ");
+                    String name = scanner.nextLine();
+
+                    Student st = s.findStudentByName(name);
+
+                    if (st == null) {
+                        System.out.println("Nie znaleziono studenta.\n");
+                    } else {
+                        System.out.println("Znaleziono: " + st.ToString() + "\n");
+                    }
+                }
+                else if (choice == 4) {
                     System.out.println("Koniec programu.");
                     break;
                 }
